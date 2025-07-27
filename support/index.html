@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD TECH HACKER - Support</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .light-mode {
+      background-color: #ffffff;
+      color: #1a1a1a;
+    }
+    .light-mode .sidebar {
+      background-color: #f8f9fa;
+    }
+    .light-mode .header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .search-bar {
+      background-color: #ffffff;
+      border: 1px solid #e9ecef;
+      color: #1a1a1a;
+    }
+    .light-mode .nav-menu {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .support-card {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 70px;
+      height: 100vh;
+      background-color: #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      z-index: 1000;
+    }
+    .sidebar-icon {
+      width: 40px;
+      height: 40px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      color: #888;
+    }
+    .sidebar-icon:hover {
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+    .sidebar-icon a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      margin-left: 70px;
+      min-height: 100vh;
+    }
+    .header {
+      background-color: #2a2a2a;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .search-bar {
+      background-color: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 20px;
+      padding: 8px 15px;
+      color: #fff;
+      width: 300px;
+    }
+    .nav-menu {
+      background-color: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+    .nav-link {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #fff;
+    }
+    .telegram-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px 20px;
+      margin: 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .join-btn {
+      background-color: #00d4aa;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .join-btn:hover {
+      background-color: #00b894;
+    }
+    .content-area {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .support-card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    .support-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .support-link {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .support-link:hover {
+      transform: translateY(-2px);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #3a3a3a;
+      border-radius: 6px;
+      background-color: #1a1a1a;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00d4aa;
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+    .btn-primary {
+      background-color: #00d4aa;
+      color: #fff;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background-color: #00b894;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .success-message {
+      color: #28a745;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .header-icon {
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .header-icon:hover {
+      color: #fff;
+    }
+    .faq-section {
+      margin-top: 40px;
+    }
+    .faq-item {
+      background-color: #3a3a3a;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+    .faq-question:hover {
+      background-color: #4a4a4a;
+    }
+    .faq-answer {
+      padding: 0 20px 20px 20px;
+      display: none;
+      color: #ccc;
+    }
+    .faq-answer.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-icon">
+      <a href="/" title="Home"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/bins/" title="Bins"><i class="fas fa-credit-card"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/methods/" title="Methods"><i class="fas fa-star"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/accounts/" title="Accounts"><i class="fas fa-user"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/support/" title="Support"><i class="fas fa-shield-alt"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/new-post/" title="Admin Panel"><i class="fas fa-plus"></i></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="text-xl font-bold">MD TECH HACKER</h1>
+      <input type="text" class="search-bar" placeholder="Search support..." />
+      <div class="header-icons">
+        <i class="header-icon fas fa-bookmark" title="Bookmarks"></i>
+        <i class="header-icon fas fa-file-alt" title="Files"></i>
+        <i class="header-icon fas fa-user-circle" title="Profile" onclick="toggleLogin()"></i>
+        <i class="header-icon fas fa-moon" title="Toggle Theme" onclick="toggleTheme()"></i>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div class="nav-links">
+        <a href="/bins/" class="nav-link">BINS</a>
+        <a href="/methods/" class="nav-link">METHODS</a>
+        <a href="/accounts/" class="nav-link">ACCOUNTS</a>
+        <a href="/support/" class="nav-link">SUPPORT</a>
+        <a href="/new-post/" class="nav-link">ADMIN</a>
+      </div>
+
+      <!-- Telegram Banner -->
+      <div class="telegram-banner">
+        <span>Join Our Channel Of telegram Now</span>
+        <a href="https://t.me/MD_TECH_BOTS" class="join-btn">JOIN NOW!</a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <h2>24/7 Support</h2>
+      <p style="text-align: center; color: #888; margin-bottom: 30px;">Get help from our experienced team whenever you need it</p>
+      
+      <!-- Support Links -->
+      <div class="support-links">
+        <a href="https://t.me/MD_TECH_BOTS" target="_blank" rel="noopener noreferrer" class="support-link">
+          <i class="fab fa-telegram"></i>
+          Join Telegram Channel
+        </a>
+        <a href="https://t.me/+SPjxul1Ln6A4YWRl" target="_blank" rel="noopener noreferrer" class="support-link">
+          <i class="fas fa-users"></i>
+          Join Group Chat / Proofs
+        </a>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="support-card">
+        <h3 style="margin-bottom: 20px; text-align: center;">Contact Us</h3>
+        <form id="support-form" novalidate>
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your name" />
+            <div class="error-message" id="name-error"></div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email" />
+            <div class="error-message" id="email-error"></div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Enter subject (optional)" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Enter your message"></textarea>
+            <div class="error-message" id="message-error"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+          <div class="error-message" id="form-error"></div>
+          <div class="success-message" id="form-success"></div>
+        </form>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="support-card faq-section">
+        <h3 style="margin-bottom: 20px; text-align: center;">Frequently Asked Questions</h3>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>How do I access premium methods?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            To access premium methods, you need to purchase VIP access. Contact @MD_TECH_HACKER on Telegram for pricing and payment details. Premium access includes exclusive methods, 24/7 support, and lifetime updates.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Are the BINs safe to use?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            All BINs provided are for educational purposes only. We do not encourage illegal activities. Users are responsible for complying with all applicable laws and regulations in their jurisdiction.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>How often are new methods added?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            We regularly update our database with new methods and BINs. Premium members get early access to new content. Free methods are updated weekly, while premium content is updated daily.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>What payment methods do you accept?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            We accept various payment methods including cryptocurrency, UPI, and other digital payment methods. Contact us on Telegram for specific payment options available in your region.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Do you offer refunds?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Due to the digital nature of our products, we generally do not offer refunds. However, if you experience technical issues or problems with access, please contact our support team and we'll work to resolve the issue.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    function clearErrors() {
+      document.querySelectorAll('.error-message, .success-message').forEach(el => el.textContent = '');
+    }
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('i');
+      
+      // Close all other FAQs
+      document.querySelectorAll('.faq-answer').forEach(ans => {
+        if (ans !== answer) {
+          ans.classList.remove('show');
+        }
+      });
+      
+      document.querySelectorAll('.faq-question i').forEach(ic => {
+        if (ic !== icon) {
+          ic.classList.remove('fa-chevron-up');
+          ic.classList.add('fa-chevron-down');
+        }
+      });
+      
+      // Toggle current FAQ
+      answer.classList.toggle('show');
+      icon.classList.toggle('fa-chevron-down');
+      icon.classList.toggle('fa-chevron-up');
+    }
+
+    // Form submission
+    document.getElementById('support-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      let hasErrors = false;
+
+      // Validation
+      if (!name) {
+        document.getElementById('name-error').textContent = 'Name is required';
+        hasErrors = true;
+      }
+
+      if (!email) {
+        document.getElementById('email-error').textContent = 'Email is required';
+        hasErrors = true;
+      } else if (!validateEmail(email)) {
+        document.getElementById('email-error').textContent = 'Please enter a valid email';
+        hasErrors = true;
+      }
+
+      if (!message) {
+        document.getElementById('message-error').textContent = 'Message is required';
+        hasErrors = true;
+      }
+
+      if (hasErrors) {
+        return;
+      }
+
+      // Simulate form submission
+      const submitButton = document.querySelector('button[type="submit"]');
+      const originalText = submitButton.innerHTML;
+      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitButton.disabled = true;
+
+      setTimeout(() => {
+        document.getElementById('form-success').textContent = 'Message sent successfully! We will get back to you soon.';
+        document.getElementById('support-form').reset();
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+        
+        if (window.MDTech && window.MDTech.showNotification) {
+          window.MDTech.showNotification('Message sent successfully!', 'success');
+        }
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
