@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD TECH HACKER - Accounts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .light-mode {
+      background-color: #ffffff;
+      color: #1a1a1a;
+    }
+    .light-mode .sidebar {
+      background-color: #f8f9fa;
+    }
+    .light-mode .header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .search-bar {
+      background-color: #ffffff;
+      border: 1px solid #e9ecef;
+      color: #1a1a1a;
+    }
+    .light-mode .nav-menu {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .auth-card, .light-mode .account-card {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 70px;
+      height: 100vh;
+      background-color: #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      z-index: 1000;
+    }
+    .sidebar-icon {
+      width: 40px;
+      height: 40px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      color: #888;
+    }
+    .sidebar-icon:hover {
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+    .sidebar-icon a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      margin-left: 70px;
+      min-height: 100vh;
+    }
+    .header {
+      background-color: #2a2a2a;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .search-bar {
+      background-color: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 20px;
+      padding: 8px 15px;
+      color: #fff;
+      width: 300px;
+    }
+    .nav-menu {
+      background-color: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+    .nav-link {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #fff;
+    }
+    .telegram-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px 20px;
+      margin: 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .join-btn {
+      background-color: #00d4aa;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .join-btn:hover {
+      background-color: #00b894;
+    }
+    .content-area {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 60vh;
+    }
+    .auth-container {
+      max-width: 400px;
+      width: 100%;
+    }
+    .auth-card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+    .auth-tab.active {
+      color: #00d4aa;
+      border-bottom-color: #00d4aa;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #3a3a3a;
+      border-radius: 6px;
+      background-color: #1a1a1a;
+      color: #fff;
+      font-size: 14px;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #00d4aa;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+    .btn-primary {
+      background-color: #00d4aa;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: #00b894;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .success-message {
+      color: #28a745;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .header-icon {
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .header-icon:hover {
+      color: #fff;
+    }
+    .account-dashboard {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00d4aa;
+    }
+    .stat-label {
+      color: #888;
+      font-size: 14px;
+    }
+    .favorites-section {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .favorite-item {
+      background-color: #3a3a3a;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .favorite-info h4 {
+      margin: 0 0 5px 0;
+      color: #00d4aa;
+    }
+    .favorite-info p {
+      margin: 0;
+      color: #888;
+      font-size: 12px;
+    }
+    .remove-favorite {
+      background: #dc3545;
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-icon">
+      <a href="/" title="Home"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/bins/" title="Bins"><i class="fas fa-credit-card"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/methods/" title="Methods"><i class="fas fa-star"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/accounts/" title="Accounts"><i class="fas fa-user"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/support/" title="Support"><i class="fas fa-shield-alt"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/new-post/" title="Admin Panel"><i class="fas fa-plus"></i></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="text-xl font-bold">MD TECH HACKER</h1>
+      <input type="text" class="search-bar" placeholder="Search..." />
+      <div class="header-icons">
+        <i class="header-icon fas fa-bookmark" title="Bookmarks"></i>
+        <i class="header-icon fas fa-file-alt" title="Files"></i>
+        <i class="header-icon fas fa-user-circle" title="Profile" onclick="toggleLogin()"></i>
+        <i class="header-icon fas fa-moon" title="Toggle Theme" onclick="toggleTheme()"></i>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div class="nav-links">
+        <a href="/bins/" class="nav-link">BINS</a>
+        <a href="/methods/" class="nav-link">METHODS</a>
+        <a href="/accounts/" class="nav-link">ACCOUNTS</a>
+        <a href="/support/" class="nav-link">SUPPORT</a>
+        <a href="/new-post/" class="nav-link">ADMIN</a>
+      </div>
+
+      <!-- Telegram Banner -->
+      <div class="telegram-banner">
+        <span>Join Our Channel Of telegram Now</span>
+        <a href="https://t.me/MD_TECH_BOTS" class="join-btn">JOIN NOW!</a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <!-- Auth Container (Login/Signup) -->
+      <div class="auth-container" id="auth-container">
+        <div class="auth-card">
+          <div class="auth-tabs">
+            <div class="auth-tab active" onclick="switchTab('login')">Login</div>
+            <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+          </div>
+
+          <!-- Login Form -->
+          <form id="login-form" style="display: block;">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" required />
+              <div class="error-message" id="login-email-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" required />
+              <div class="error-message" id="login-password-error"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="error-message" id="login-error"></div>
+            <div class="success-message" id="login-success"></div>
+          </form>
+
+          <!-- Signup Form -->
+          <form id="signup-form" style="display: none;">
+            <div class="form-group">
+              <label for="signup-username">Username</label>
+              <input type="text" id="signup-username" required />
+              <div class="error-message" id="signup-username-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email</label>
+              <input type="email" id="signup-email" required />
+              <div class="error-message" id="signup-email-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" required />
+              <div class="error-message" id="signup-password-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="signup-confirm-password">Confirm Password</label>
+              <input type="password" id="signup-confirm-password" required />
+              <div class="error-message" id="signup-confirm-password-error"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <div class="error-message" id="signup-error"></div>
+            <div class="success-message" id="signup-success"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Account Dashboard (shown when logged in) -->
+      <div class="account-dashboard" id="account-dashboard">
+        <div class="dashboard-header">
+          <h2>Welcome back, <span id="username-display"></span>!</h2>
+          <p>Manage your account and view your saved favorites</p>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="favorites-count">0</div>
+            <div class="stat-label">Saved Favorites</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="bins-count">0</div>
+            <div class="stat-label">Saved BINs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="methods-count">0</div>
+            <div class="stat-label">Saved Methods</div>
+          </div>
+        </div>
+
+        <div class="favorites-section">
+          <h3>Your Favorites</h3>
+          <div class="favorites-grid" id="favorites-grid">
+            <!-- Favorites will be loaded here -->
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="btn btn-primary" onclick="logout()" style="width: auto; padding: 10px 30px;">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Don't redeclare currentUser, use the one from main.js
+    currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
+    function switchTab(tab) {
+      // Update tab appearance
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Show/hide forms
+      if (tab === 'login') {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('signup-form').style.display = 'none';
+      } else {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('signup-form').style.display = 'block';
+      }
+
+      // Clear errors
+      clearErrors();
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.error-message, .success-message').forEach(el => el.textContent = '');
+    }
+
+    // Login form handler
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      // Simple validation
+      if (!email || !password) {
+        document.getElementById('login-error').textContent = 'Please fill in all fields';
+        return;
+      }
+
+      // Check if user exists (simple simulation) or admin credentials
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      let user = users.find(u => u.email === email && u.password === password);
+      
+      // Check for admin credentials
+      if (!user && (
+        (email === 'keygenmd5@gmail.com' && password === 'MDTECH@2009') ||
+        (email === 'm.dharaaneesh123@gmail.com' && password === 'MDTECH@2009')
+      )) {
+        user = {
+          username: email === 'keygenmd5@gmail.com' ? 'MD_TECH_HACKER' : 'Admin',
+          email: email,
+          favorites: []
+        };
+      }
+
+      if (user) {
+        currentUser = {
+          username: user.username,
+          email: user.email,
+          favorites: user.favorites || []
+        };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        document.getElementById('login-success').textContent = 'Login successful!';
+        setTimeout(() => {
+          showDashboard();
+          if (window.showNotification) {
+            window.showNotification('Welcome back!', 'success');
+          }
+        }, 1000);
+      } else {
+        document.getElementById('login-error').textContent = 'Invalid email or password';
+      }
+    });
+
+    // Signup form handler
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const username = document.getElementById('signup-username').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+      // Validation
+      if (!username || !email || !password || !confirmPassword) {
+        document.getElementById('signup-error').textContent = 'Please fill in all fields';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        document.getElementById('signup-confirm-password-error').textContent = 'Passwords do not match';
+        return;
+      }
+
+      if (password.length < 6) {
+        document.getElementById('signup-password-error').textContent = 'Password must be at least 6 characters';
+        return;
+      }
+
+      // Check if user already exists
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.find(u => u.email === email)) {
+        document.getElementById('signup-email-error').textContent = 'Email already exists';
+        return;
+      }
+
+      // Create new user
+      const newUser = {
+        username: username,
+        email: email,
+        password: password,
+        favorites: []
+      };
+
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+
+      document.getElementById('signup-success').textContent = 'Account created successfully! Please login.';
+      setTimeout(() => {
+        switchTab('login');
+        document.getElementById('login-email').value = email;
+      }, 1500);
+    });
+
+    function showDashboard() {
+      document.getElementById('auth-container').style.display = 'none';
+      document.getElementById('account-dashboard').style.display = 'block';
+      
+      // Update dashboard
+      document.getElementById('username-display').textContent = currentUser.username;
+      updateDashboardStats();
+      loadFavorites();
+    }
+
+    function updateDashboardStats() {
+      const favorites = currentUser.favorites || [];
+      const binsCount = favorites.filter(f => f.type === 'bin').length;
+      const methodsCount = favorites.filter(f => f.type === 'method').length;
+
+      document.getElementById('favorites-count').textContent = favorites.length;
+      document.getElementById('bins-count').textContent = binsCount;
+      document.getElementById('methods-count').textContent = methodsCount;
+    }
+
+    function loadFavorites() {
+      const favoritesGrid = document.getElementById('favorites-grid');
+      const favorites = currentUser.favorites || [];
+
+      if (favorites.length === 0) {
+        favoritesGrid.innerHTML = '<p style="text-align: center; color: #888;">No favorites saved yet</p>';
+        return;
+      }
+
+      favoritesGrid.innerHTML = favorites.map(fav => `
+        <div class="favorite-item">
+          <div class="favorite-info">
+            <h4>${fav.title}</h4>
+            <p>${fav.type.toUpperCase()} • Saved ${new Date(fav.savedAt).toLocaleDateString()}</p>
+          </div>
+          <button class="remove-favorite" onclick="removeFavorite(${fav.id})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function removeFavorite(itemId) {
+      currentUser.favorites = currentUser.favorites.filter(f => f.id !== itemId);
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      
+      // Update users array
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const userIndex = users.findIndex(u => u.email === currentUser.email);
+      if (userIndex !== -1) {
+        users[userIndex].favorites = currentUser.favorites;
+        localStorage.setItem('users', JSON.stringify(users));
+      }
+
+      updateDashboardStats();
+      loadFavorites();
+      
+      if (window.showNotification) {
+        window.showNotification('Removed from favorites', 'success');
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      document.getElementById('auth-container').style.display = 'block';
+      document.getElementById('account-dashboard').style.display = 'none';
+      
+      // Clear forms
+      document.getElementById('login-form').reset();
+      document.getElementById('signup-form').reset();
+      clearErrors();
+      
+      if (window.showNotification) {
+        window.showNotification('Logged out successfully', 'success');
+      }
+    }
+
+    // Check if user is already logged in
+    document.addEventListener('DOMContentLoaded', function() {
+      if (currentUser) {
+        showDashboard();
+      }
+    });
+
+    // Override global functions for this page
+    window.toggleLogin = function() {
+      if (currentUser) {
+        // Already logged in, show profile menu or dashboard
+        if (window.showNotification) {
+          window.showNotification('You are already logged in!', 'info');
+        }
+      } else {
+        // Not logged in, forms are already visible
+        if (window.showNotification) {
+          window.showNotification('Please login or create an account', 'info');
+        }
+      }
+    };
+  </script>
+</body>
+</html>
