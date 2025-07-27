@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD TECH HACKER - Methods</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .light-mode {
+      background-color: #ffffff;
+      color: #1a1a1a;
+    }
+    .light-mode .sidebar {
+      background-color: #f8f9fa;
+    }
+    .light-mode .header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .search-bar {
+      background-color: #ffffff;
+      border: 1px solid #e9ecef;
+      color: #1a1a1a;
+    }
+    .light-mode .nav-menu {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .method-card {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 70px;
+      height: 100vh;
+      background-color: #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      z-index: 1000;
+    }
+    .sidebar-icon {
+      width: 40px;
+      height: 40px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      color: #888;
+    }
+    .sidebar-icon:hover {
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+    .sidebar-icon a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      margin-left: 70px;
+      min-height: 100vh;
+    }
+    .header {
+      background-color: #2a2a2a;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .search-bar {
+      background-color: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 20px;
+      padding: 8px 15px;
+      color: #fff;
+      width: 300px;
+    }
+    .nav-menu {
+      background-color: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+    .nav-link {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #fff;
+    }
+    .telegram-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px 20px;
+      margin: 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .join-btn {
+      background-color: #00d4aa;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .join-btn:hover {
+      background-color: #00b894;
+    }
+    .content-area {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .methods-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+    }
+    .method-card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s;
+      cursor: pointer;
+      position: relative;
+      border-left: 4px solid #00d4aa;
+    }
+    .method-card:hover {
+      transform: translateY(-5px);
+      background-color: #3a3a3a;
+    }
+    .method-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #00d4aa;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .method-details {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    .method-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .btn-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+    .btn-success:hover {
+      background-color: #1e7e34;
+    }
+    .favorite-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .favorite-btn:hover {
+      color: #ff6b6b;
+    }
+    .favorite-btn.active {
+      color: #ff6b6b;
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .header-icon {
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .header-icon:hover {
+      color: #fff;
+    }
+    .method-badge {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .method-badge.premium {
+      background-color: #ffc107;
+      color: #000;
+    }
+    .method-badge.free {
+      background-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-icon">
+      <a href="/" title="Home"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/bins/" title="Bins"><i class="fas fa-credit-card"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/methods/" title="Methods"><i class="fas fa-star"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/accounts/" title="Accounts"><i class="fas fa-user"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/support/" title="Support"><i class="fas fa-shield-alt"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/new-post/" title="Admin Panel"><i class="fas fa-plus"></i></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="text-xl font-bold">MD TECH HACKER</h1>
+      <input type="text" class="search-bar" placeholder="Search methods..." />
+      <div class="header-icons">
+        <i class="header-icon fas fa-bookmark" title="Bookmarks"></i>
+        <i class="header-icon fas fa-file-alt" title="Files"></i>
+        <i class="header-icon fas fa-user-circle" title="Profile" onclick="toggleLogin()"></i>
+        <i class="header-icon fas fa-moon" title="Toggle Theme" onclick="toggleTheme()"></i>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div class="nav-links">
+        <a href="/bins/" class="nav-link">BINS</a>
+        <a href="/methods/" class="nav-link">METHODS</a>
+        <a href="/accounts/" class="nav-link">ACCOUNTS</a>
+        <a href="/support/" class="nav-link">SUPPORT</a>
+        <a href="/new-post/" class="nav-link">ADMIN</a>
+      </div>
+
+      <!-- Telegram Banner -->
+      <div class="telegram-banner">
+        <span>Join Our Channel Of telegram Now</span>
+        <a href="https://t.me/MD_TECH_BOTS" class="join-btn">JOIN NOW!</a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <h2>Methods & Tutorials</h2>
+      <p style="text-align: center; color: #888; margin-bottom: 30px;">Learn various methods and techniques with step-by-step guides</p>
+      
+      <div class="methods-list">
+        <!-- Private Channel Access -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Private Channel Access', description: 'Get access to exclusive private channels'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge premium">PREMIUM</div>
+          <div class="method-title">
+            <i class="fas fa-lock" style="color: #ffc107;"></i>
+            🔒 Private Channel Access 🔒
+          </div>
+          <div class="method-details">
+            <p><strong>Access Level:</strong> VIP Members Only</p>
+            <p><strong>Duration:</strong> Lifetime Access</p>
+            <p><strong>Includes:</strong> Exclusive methods, tools, and resources</p>
+            <p><strong>Price:</strong> ₹1500/$15</p>
+            <p>Get exclusive access to our private channel with premium methods, tools, and 24/7 support.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="contactForAccess()">Contact for Access</button>
+            <button class="btn btn-success" onclick="showMethodDetails('private-channel')">View Details</button>
+          </div>
+        </div>
+
+        <!-- BGMI UC Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'BGMI UC Method', description: 'Get free UC for BGMI game'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-gamepad" style="color: #ff6b6b;"></i>
+            BGMI UC Method
+          </div>
+          <div class="method-details">
+            <p><strong>Game:</strong> Battlegrounds Mobile India</p>
+            <p><strong>Reward:</strong> Free UC (Unknown Cash)</p>
+            <p><strong>Difficulty:</strong> Easy</p>
+            <p><strong>Success Rate:</strong> 85%</p>
+            <p>Step-by-step method to get free UC in BGMI using legitimate techniques.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('bgmi-uc')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('bgmi-uc')">View Details</button>
+          </div>
+        </div>
+
+        <!-- ChatGPT Blue Free Access -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'ChatGPT Blue Free Access', description: 'Get free ChatGPT Plus subscription'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-robot" style="color: #00d4aa;"></i>
+            ChatGPT Blue Free Access
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> ChatGPT Plus</p>
+            <p><strong>Duration:</strong> 1 Month</p>
+            <p><strong>Features:</strong> GPT-4, Priority access, Faster responses</p>
+            <p><strong>Success Rate:</strong> 92%</p>
+            <p>Get free access to ChatGPT Plus with all premium features included.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('chatgpt-blue')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('chatgpt-blue')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Surfshark 2 Months Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Surfshark 2 Months Method', description: 'Get 2 months free Surfshark VPN'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-shield-alt" style="color: #007bff;"></i>
+            Surfshark 2 Months Method
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Surfshark VPN</p>
+            <p><strong>Duration:</strong> 2 Months Free</p>
+            <p><strong>Features:</strong> Unlimited devices, No logs, Fast speeds</p>
+            <p><strong>Success Rate:</strong> 78%</p>
+            <p>Get 2 months of free Surfshark VPN premium subscription with all features.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('surfshark-2m')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('surfshark-2m')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Swiggy One Free Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Swiggy One Free Method', description: 'Get 3 months free Swiggy One with IndiGo Blue'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-utensils" style="color: #ff6600;"></i>
+            Get 3 Months Swiggy One Free with IndiGo Blue
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Swiggy One Membership</p>
+            <p><strong>Duration:</strong> 3 Months Free</p>
+            <p><strong>Partner:</strong> IndiGo Blue Credit Card</p>
+            <p><strong>Benefits:</strong> Free delivery, Exclusive discounts</p>
+            <p>Get 3 months of free Swiggy One membership through IndiGo Blue partnership.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('swiggy-indigo')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('swiggy-indigo')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Netflix Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Netflix Premium Method', description: 'Get Netflix premium subscription'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge premium">PREMIUM</div>
+          <div class="method-title">
+            <i class="fab fa-netflix" style="color: #e50914;"></i>
+            Netflix Premium Method
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Netflix Premium</p>
+            <p><strong>Duration:</strong> 1-12 Months</p>
+            <p><strong>Quality:</strong> 4K UHD, Multiple screens</p>
+            <p><strong>Success Rate:</strong> 95%</p>
+            <p>Premium method to get Netflix subscription with 4K quality and multiple screens.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="contactForAccess()">Contact for Access</button>
+            <button class="btn btn-success" onclick="showMethodDetails('netflix-premium')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Spotify Premium Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Spotify Premium Method', description: 'Get Spotify premium subscription'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge premium">PREMIUM</div>
+          <div class="method-title">
+            <i class="fab fa-spotify" style="color: #1db954;"></i>
+            Spotify Premium Method
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Spotify Premium</p>
+            <p><strong>Duration:</strong> 1-12 Months</p>
+            <p><strong>Features:</strong> No ads, Offline mode, High quality</p>
+            <p><strong>Success Rate:</strong> 90%</p>
+            <p>Premium method to get Spotify subscription with all premium features included.</p>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="contactForAccess()">Contact for Access</button>
+            <button class="btn btn-success" onclick="showMethodDetails('spotify-premium')">View Details</button>
+          </div>
+        </div>
+
+        <!-- YouTube Premium Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'YouTube Premium Method', description: 'Get YouTube premium subscription'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge premium">PREMIUM</div>
+          <div class="method-title">
+            <i class="fab fa-youtube" style="color: #ff0000;"></i>
+            YouTube Premium Method
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> YouTube Premium</p>
+            <p><strong>Duration:</strong> 1-12 Months</p>
+            <p><strong>Features:</strong> No ads, Background play, Downloads</p>
+            <p><strong>Success Rate:</strong> 88%</p>
+            <p>Premium method to get YouTube Premium with ad-free experience and background play.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="contactForAccess()">Contact for Access</button>
+            <button class="btn btn-success" onclick="showMethodDetails('youtube-premium')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Method 1: ChatGPT Plus Free Access -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'ChatGPT Plus Free Access', description: 'Get free ChatGPT Plus subscription'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-robot" style="color: #00d4aa;"></i>
+            ChatGPT Plus Free Access
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> ChatGPT Plus</p>
+            <p><strong>Duration:</strong> 1 Month</p>
+            <p><strong>Features:</strong> GPT-4, Priority access, Faster responses</p>
+            <p><strong>Success Rate:</strong> 92%</p>
+            <p>Get free access to ChatGPT Plus with all premium features included.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('method-1')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('method-1')">View Details</button>
+          </div>
+        </div>
+        <!-- Removed duplicate or less detailed methods -->
+
+        <!-- Method 2: BGMI UC Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'BGMI UC Method', description: 'Get free UC for BGMI game'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-gamepad" style="color: #ff6b6b;"></i>
+            BGMI UC Method
+          </div>
+          <div class="method-details">
+            <p><strong>Game:</strong> Battlegrounds Mobile India</p>
+            <p><strong>Reward:</strong> Free UC (Unknown Cash)</p>
+            <p><strong>Difficulty:</strong> Easy</p>
+            <p><strong>Success Rate:</strong> 100%</p>
+            <p>100% effective method to get free UC in BGMI using legitimate techniques.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('method-2')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('method-2')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Method 3: Surfshark 2 Months Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Surfshark 2 Months Method', description: 'Get 2 months free Surfshark VPN'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-shield-alt" style="color: #007bff;"></i>
+            Surfshark 2 Months Method
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Surfshark VPN</p>
+            <p><strong>Duration:</strong> 2 Months Free</p>
+            <p><strong>Features:</strong> Unlimited devices, No logs, Fast speeds</p>
+            <p><strong>BIN:</strong> 59888037914|07|32</p>
+            <p>Get 2 months of free Surfshark VPN premium subscription with all features.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('method-3')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('method-3')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Method 4: Swiggy One Free Method -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Get 3 Months Swiggy One Free', description: 'Get 3 months free Swiggy One with IndiGo Blue'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fas fa-utensils" style="color: #ff6600;"></i>
+            Get 3 Months Swiggy One Free with IndiGo Blue
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Swiggy One Membership</p>
+            <p><strong>Duration:</strong> 3 Months Free</p>
+            <p><strong>Partner:</strong> IndiGo Blue Credit Card</p>
+            <p><strong>Benefits:</strong> Free delivery, Exclusive discounts</p>
+            <p>Get 3 months of free Swiggy One membership through IndiGo Blue partnership.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('method-4')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('method-4')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Method 5: Spotify 3 Months Premium -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'SPOTIFY 3 MONTHS PREMIUM', description: 'Get 3 months free Spotify Premium'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fab fa-spotify" style="color: #1db954;"></i>
+            SPOTIFY 3 MONTHS PREMIUM
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Spotify Premium</p>
+            <p><strong>Duration:</strong> 3 Months Free</p>
+            <p><strong>Features:</strong> No ads, Offline mode, High quality</p>
+            <p><strong>BIN:</strong> 426807033508xxxx|02|2028</p>
+            <p>Get 3 months of free Spotify Premium with all premium features included.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('method-5')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('method-5')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Method 6: Create Premium Netflix Accounts -->
+        <div class="method-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'method', {title: 'Create Premium Netflix Accounts', description: 'Create premium Netflix accounts'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="method-badge free">FREE</div>
+          <div class="method-title">
+            <i class="fab fa-netflix" style="color: #e50914;"></i>
+            Create Premium Netflix Accounts
+          </div>
+          <div class="method-details">
+            <p><strong>Service:</strong> Netflix Premium</p>
+            <p><strong>Duration:</strong> Variable</p>
+            <p><strong>Quality:</strong> 4K UHD, Multiple screens</p>
+            <p><strong>Requirements:</strong> Express/Vypr VPN, Airtel Thanks App</p>
+            <p>Create premium Netflix accounts using Switzerland VPN and virtual debit cards.</p>
+          </div>
+          <div class="method-actions">
+            <button class="btn btn-primary" onclick="copyMethod('method-6')">Copy Method</button>
+            <button class="btn btn-success" onclick="showMethodDetails('method-6')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+      const methodDetailsData = {
+        'private-channel': {
+          title: 'Private Channel Access',
+          steps: [
+            'Join our exclusive private Telegram channels.',
+            'Get access to premium methods, tools, and resources.',
+            'Enjoy 24/7 support and updates.',
+            'Contact admin for VIP membership.'
+          ]
+        },
+        'bgmi-uc': {
+          title: 'BGMI UC Method',
+          steps: [
+            'Open the BGMI game on your device.',
+            'Navigate to the UC purchase section.',
+            'Use the provided method code to get free UC.',
+            'Enjoy your free UC and rewards.'
+          ]
+        },
+        'chatgpt-blue': {
+          title: 'ChatGPT Blue Free Access',
+          steps: [
+            'Sign up for a ChatGPT account.',
+            'Use the provided access code to unlock ChatGPT Plus features.',
+            'Enjoy GPT-4, priority access, and faster responses.',
+            'Renew access monthly for continued benefits.'
+          ]
+        },
+        'surfshark-2m': {
+          title: 'Surfshark 2 Months Method',
+          steps: [
+            'Visit the Surfshark official website.',
+            'Use the promo code to get 2 months free subscription.',
+            'Install the Surfshark app on your devices.',
+            'Enjoy unlimited devices and fast VPN speeds.'
+          ]
+        },
+        'swiggy-indigo': {
+          title: 'Swiggy One Free Method',
+          steps: [
+            'Apply for the IndiGo Blue Credit Card.',
+            'Activate the Swiggy One membership through the card benefits.',
+            'Enjoy 3 months of free Swiggy One membership.',
+            'Get free delivery and exclusive discounts.'
+          ]
+        },
+        'netflix-premium': {
+          title: 'Netflix Premium Method',
+          steps: [
+            'Sign up or log in to Netflix.',
+            'Use the premium BIN or method code provided.',
+            'Enjoy 4K UHD streaming on multiple screens.',
+            'Renew subscription as needed.'
+          ]
+        },
+        'spotify-premium': {
+          title: 'Spotify Premium Method',
+          steps: [
+            'Create a Spotify account.',
+            'Apply the premium method code or BIN.',
+            'Enjoy ad-free music and offline mode.',
+            'Renew subscription monthly or yearly.'
+          ]
+        },
+        'youtube-premium': {
+          title: 'YouTube Premium Method',
+          steps: [
+            'Log in to your YouTube account.',
+            'Use the premium method code to activate YouTube Premium.',
+            'Enjoy ad-free videos, background play, and downloads.',
+            'Renew subscription as needed.'
+          ]
+        },
+        'method-1': {
+          title: 'ChatGPT Plus Free Access',
+          steps: [
+            'Use Netherlands VPN during the process',
+            'Visit oxaam.com',
+            'Enter any random name, email, phone number, password',
+            'Click on activate ChatGPT',
+            'Important Notes:',
+            'VPN location is crucial for success',
+            'Use temporary/disposable email if possible',
+            'Method may need to be repeated periodically'
+          ]
+        },
+        'method-2': {
+          title: 'BGMI UC Method',
+          steps: [
+            'No VPN required (works without VPN)',
+            'Use an old Gmail account for better success rate',
+            'Change device, IP, and Gmail if experiencing failures',
+            'Purchase small amounts only (75 UC or 100 diamonds)',
+            'Add CC in-game during purchase, not in Play Store or YouTube',
+            'Important Notes:',
+            '100% effective method',
+            'Avoid new Gmail accounts',
+            'No credit cards should be linked to the account',
+            'Small purchases have higher success rate'
+          ]
+        },
+        'method-3': {
+          title: 'Surfshark 2 Months Method',
+          steps: [
+            'Visit Eneba.com and purchase Surfshark using UPI (for Indians) or CC (for international users)',
+            'Use the following BIN for generation',
+            'Use your own IP or any good IP address',
+            'Auto renewal will occur after 2 months',
+            'Generate and try for better approval rates',
+            'After successful purchase, redeem your Eneba code at surfshark.com/partnerships-offer',
+            'BIN: 59888037914|07|32',
+            'Important Notes:',
+            'For Indian users: Use UPI payment method',
+            'For international users: Credit card payment available',
+            'Auto-renewal feature included',
+            'Better success rate with approved generators'
+          ]
+        },
+        'method-4': {
+          title: 'Get 3 Months Swiggy One Free with IndiGo Blue',
+          steps: [
+            'Open Swiggy App and navigate to Profile section',
+            'Go to Partner Rewards in your profile',
+            'Link your IndiGo BluChips account with Swiggy',
+            'Visit IndiGo dashboard to get your membership number',
+            "If you don't have an account, create one to get a membership number",
+            'Enter your membership number in Swiggy',
+            "Click on 'Claim now' to activate your 3-month Swiggy One membership",
+            'Important Notes:',
+            'Valid for all IndiGo BluChips members',
+            'Membership must be active to claim the offer',
+            'Benefits start immediately after successful claim',
+            '3-month membership period starts from activation date'
+          ]
+        },
+        'method-5': {
+          title: 'SPOTIFY 3 MONTHS PREMIUM',
+          steps: [
+            'First, create an account with your email address',
+            'Create a password',
+            'Choose the free 3-month trial option',
+            'BIN: 426807033508xxxx|02|2028 426807034139xxxx|10|2026',
+            'Important Notes:',
+            'IP: MEXICO 🇲🇽',
+            'Click on generated or take live for greater effectiveness',
+            'Trial link https://www.spotify.com/mx/premium/?ref=checkout#plans'
+          ]
+        },
+        'method-6': {
+          title: 'Create Premium Netflix Accounts',
+          steps: [
+            'Connect to Switzerland using Express/Vypr VPN',
+            'Visit netflix.com',
+            'Set up email and choose package',
+            'Select credit/debit card payment option',
+            'Get a virtual debit card from Airtel Thanks app using a new number',
+            'Ensure VPN is connected to Switzerland',
+            'Enter card information on payment page',
+            'Click continue and wait for verification',
+            'Enter OTP received on your phone',
+            'Important Notes:',
+            'Requires Express/Vypr VPN',
+            'Needs Airtel Thanks Application',
+            'Pan card verification not required if filled immediately',
+            'Method works for 2025'
+          ]
+        },
+        'method-7': {
+          title: 'Method 7',
+          steps: [
+            'Step 1 for method 7.',
+            'Step 2 for method 7.',
+            'Step 3 for method 7.',
+            'Step 4 for method 7.'
+          ]
+        }
+      };
+
+      function copyMethod(methodType) {
+        showNotification(`${methodType} method copied!`, 'success');
+        // Here you could copy the actual method content
+      }
+
+      function showMethodDetails(methodType) {
+        const data = methodDetailsData[methodType];
+        if (!data) {
+          showNotification('Method details not found', 'error');
+          return;
+        }
+
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.style.cssText = `
+          position: fixed;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 2000;
+        `;
+
+        const content = document.createElement('div');
+        content.style.cssText = `
+          background: #2a2a2a;
+          border-radius: 10px;
+          padding: 30px;
+          max-width: 600px;
+          max-height: 80vh;
+          overflow-y: auto;
+          color: #fff;
+        `;
+
+        let stepsHtml = '<ol style="padding-left: 20px;">';
+        data.steps.forEach(step => {
+          stepsHtml += `<li style="margin-bottom: 10px;">${step}</li>`;
+        });
+        stepsHtml += '</ol>';
+
+        content.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>${data.title}</h2>
+            <button onclick="this.closest('.modal').remove()" style="background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;">&times;</button>
+          </div>
+          ${stepsHtml}
+        `;
+
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.remove();
+          }
+        });
+      }
+
+      function contactForAccess() {
+        window.open('https://t.me/MD_TECH_HACKER', '_blank');
+        showNotification('Redirecting to Telegram for premium access...', 'info');
+      }
+
+      function toggleFavorite(button, type, item) {
+        const icon = button.querySelector('i');
+        const isActive = button.classList.contains('active');
+        
+        if (isActive) {
+          button.classList.remove('active');
+          icon.classList.remove('fas');
+          icon.classList.add('far');
+          showNotification('Removed from favorites', 'info');
+        } else {
+          button.classList.add('active');
+          icon.classList.remove('far');
+          icon.classList.add('fas');
+          if (window.MDTech && window.MDTech.addToFavorites) {
+            window.MDTech.addToFavorites(type, item);
+          } else {
+            showNotification('Added to favorites!', 'success');
+          }
+        }
+      }
+
+    // Load user favorites on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if (currentUser && currentUser.favorites) {
+        currentUser.favorites.forEach(fav => {
+          if (fav.type === 'method') {
+            const cards = document.querySelectorAll('.method-card');
+            cards.forEach(card => {
+              const title = card.querySelector('.method-title').textContent.trim();
+              if (title.includes(fav.title)) {
+                const favBtn = card.querySelector('.favorite-btn');
+                favBtn.classList.add('active');
+                const icon = favBtn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+              }
+            });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
