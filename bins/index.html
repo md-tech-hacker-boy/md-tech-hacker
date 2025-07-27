@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD TECH HACKER - Bins</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .light-mode {
+      background-color: #ffffff;
+      color: #1a1a1a;
+    }
+    .light-mode .sidebar {
+      background-color: #f8f9fa;
+    }
+    .light-mode .header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .search-bar {
+      background-color: #ffffff;
+      border: 1px solid #e9ecef;
+      color: #1a1a1a;
+    }
+    .light-mode .nav-menu {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .light-mode .bin-card {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 70px;
+      height: 100vh;
+      background-color: #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      z-index: 1000;
+    }
+    .sidebar-icon {
+      width: 40px;
+      height: 40px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      color: #888;
+    }
+    .sidebar-icon:hover {
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+    .sidebar-icon a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      margin-left: 70px;
+      min-height: 100vh;
+    }
+    .header {
+      background-color: #2a2a2a;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .search-bar {
+      background-color: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 20px;
+      padding: 8px 15px;
+      color: #fff;
+      width: 300px;
+    }
+    .nav-menu {
+      background-color: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+    .nav-link {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #fff;
+    }
+    .telegram-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px 20px;
+      margin: 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .join-btn {
+      background-color: #00d4aa;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .join-btn:hover {
+      background-color: #00b894;
+    }
+    .content-area {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .bins-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .bin-card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .bin-card:hover {
+      transform: translateY(-5px);
+      background-color: #3a3a3a;
+    }
+    .bin-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #00d4aa;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bin-details {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    .bin-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .btn-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+    .btn-success:hover {
+      background-color: #1e7e34;
+    }
+    .favorite-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .favorite-btn:hover {
+      color: #ff6b6b;
+    }
+    .favorite-btn.active {
+      color: #ff6b6b;
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .header-icon {
+      color: #888;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .header-icon:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-icon">
+      <a href="/" title="Home"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/bins/" title="Bins"><i class="fas fa-credit-card"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/methods/" title="Methods"><i class="fas fa-star"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/accounts/" title="Accounts"><i class="fas fa-user"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/support/" title="Support"><i class="fas fa-shield-alt"></i></a>
+    </div>
+    <div class="sidebar-icon">
+      <a href="/new-post/" title="Admin Panel"><i class="fas fa-plus"></i></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="text-xl font-bold">MD TECH HACKER</h1>
+      <input type="text" class="search-bar" placeholder="Search BINs..." />
+      <div class="header-icons">
+        <i class="header-icon fas fa-bookmark" title="Bookmarks"></i>
+        <i class="header-icon fas fa-file-alt" title="Files"></i>
+        <i class="header-icon fas fa-user-circle" title="Profile" onclick="toggleLogin()"></i>
+        <i class="header-icon fas fa-moon" title="Toggle Theme" onclick="toggleTheme()"></i>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div class="nav-links">
+        <a href="/bins/" class="nav-link">BINS</a>
+        <a href="/methods/" class="nav-link">METHODS</a>
+        <a href="/accounts/" class="nav-link">ACCOUNTS</a>
+        <a href="/support/" class="nav-link">SUPPORT</a>
+        <a href="/new-post/" class="nav-link">ADMIN</a>
+      </div>
+
+      <!-- Telegram Banner -->
+      <div class="telegram-banner">
+        <span>Join Our Channel Of telegram Now</span>
+        <a href="https://t.me/MD_TECH_BOTS" class="join-btn">JOIN NOW!</a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <h2>Browse BINs</h2>
+      <p style="text-align: center; color: #888; margin-bottom: 20px;">Access our collection of high-quality BINs with detailed information</p>
+      
+      <!-- Important Notice -->
+      <div style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 30px; text-align: center;">
+        <h4 style="margin: 0 0 10px 0; color: #856404;"><i class="fas fa-exclamation-triangle"></i> ⚠️ Important Notice</h4>
+        <p style="margin: 0; font-size: 14px;">
+          <strong>DISCLAIMER:</strong> All BINs and methods provided on this website are for educational and testing purposes only. 
+          We are NOT responsible for any illegal activities, misuse, or consequences arising from the use of this information. 
+          Users must comply with all applicable laws and regulations in their jurisdiction. Use at your own risk and responsibility.
+        </p>
+      </div>
+      
+      <div class="bins-list">
+        <!-- Netflix BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Netflix BIN', description: 'High-quality BIN for Netflix subscriptions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="/bins/REDAY/MD TECH GEN.png" alt="Netflix" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-netflix" style="color: #e50914;"></i>
+            Netflix BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 4532 15xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Visa Credit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Chase Bank</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 85%</p>
+            <p>High-quality BIN for Netflix subscriptions with excellent approval rates.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('4532 15xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('netflix')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Amazon Prime BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Amazon Prime BIN', description: 'Premium BIN for Amazon Prime subscriptions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4498362/pexels-photo-4498362.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Amazon Prime" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-amazon" style="color: #ff9900;"></i>
+            Amazon Prime BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 5555 44xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Mastercard Credit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Bank of America</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 78%</p>
+            <p>Premium BIN for Amazon Prime subscriptions and shopping.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('5555 44xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('amazon')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Google Play BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Google Play BIN', description: 'Reliable BIN for Google Play Store purchases'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4498362/pexels-photo-4498362.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Google Play" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-google-play" style="color: #34a853;"></i>
+            Google Play BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 4111 11xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Visa Debit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Wells Fargo</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 92%</p>
+            <p>Reliable BIN for Google Play Store purchases and app subscriptions.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('4111 11xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('google')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Spotify BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Spotify BIN', description: 'Premium BIN for Spotify music streaming'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4348401/pexels-photo-4348401.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Spotify" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-spotify" style="color: #1db954;"></i>
+            Spotify BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 3782 82xx xxxx xxxx</p>
+            <p><strong>Type:</strong> American Express</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> American Express</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 88%</p>
+            <p>Premium BIN for Spotify music streaming subscriptions.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('3782 82xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('spotify')">View Details</button>
+          </div>
+        </div>
+
+        <!-- PayPal BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'PayPal BIN', description: 'Verified BIN for PayPal transactions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4968630/pexels-photo-4968630.jpeg?auto=compress&cs=tinysrgb&w=400" alt="PayPal" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-paypal" style="color: #0070ba;"></i>
+            PayPal BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 4000 00xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Visa Credit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Citibank</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 75%</p>
+            <p>Verified BIN for PayPal transactions and online payments.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('4000 00xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('paypal')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Discord BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Discord Nitro BIN', description: 'Premium BIN for Discord Nitro subscriptions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4348401/pexels-photo-4348401.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Discord" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-discord" style="color: #5865f2;"></i>
+            Discord Nitro BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 5200 00xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Mastercard Credit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Capital One</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 82%</p>
+            <p>Premium BIN for Discord Nitro and gaming subscriptions.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('5200 00xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('discord')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Premium BINs - Contact Admin -->
+        <div class="bin-card" style="border: 2px solid gold;">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Premium BINs Collection', description: 'Exclusive premium BINs for VIP members'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4968630/pexels-photo-4968630.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Premium BINs" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title" style="color: gold;">
+            <i class="fas fa-crown" style="color: gold;"></i>
+            🔥 Premium BINs Collection 🔥
+          </div>
+          <div class="bin-details">
+            <p><strong>Access:</strong> VIP Members Only</p>
+            <p><strong>Includes:</strong> 100+ Premium BINs</p>
+            <p><strong>Success Rate:</strong> 95%+</p>
+            <p><strong>Features:</strong> Live BINs, Daily Updates, 24/7 Support</p>
+            <p><strong>Price:</strong> ₹1500/$15 (Lifetime) | ₹800/$10 (Monthly)</p>
+            <p>Get access to our exclusive collection of premium BINs with highest success rates.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="contactAdmin()">Contact Admin</button>
+            <button class="btn btn-success" onclick="showPremiumDetails()">View Premium Details</button>
+          </div>
+        </div>
+
+        <!-- YouTube Premium BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'YouTube Premium BIN', description: 'BIN for YouTube Premium subscriptions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4009402/pexels-photo-4009402.jpeg?auto=compress&cs=tinysrgb&w=400" alt="YouTube" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-youtube" style="color: #ff0000;"></i>
+            YouTube Premium BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 4242 42xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Visa Credit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> JPMorgan Chase</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 89%</p>
+            <p>Premium BIN for YouTube Premium and YouTube Music subscriptions.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('4242 42xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('youtube')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Apple Music BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Apple Music BIN', description: 'BIN for Apple Music subscriptions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4348401/pexels-photo-4348401.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Apple Music" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fab fa-apple" style="color: #000;"></i>
+            Apple Music BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 5105 10xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Mastercard Credit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Wells Fargo</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 87%</p>
+            <p>Premium BIN for Apple Music and Apple services subscriptions.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('5105 10xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('apple-music')">View Details</button>
+          </div>
+        </div>
+
+        <!-- Hulu BIN -->
+        <div class="bin-card">
+          <button class="favorite-btn" onclick="toggleFavorite(this, 'bin', {title: 'Hulu BIN', description: 'BIN for Hulu streaming subscriptions'})">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="https://images.pexels.com/photos/4009402/pexels-photo-4009402.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Hulu" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+          <div class="bin-title">
+            <i class="fas fa-tv" style="color: #1ce783;"></i>
+            Hulu BIN
+          </div>
+          <div class="bin-details">
+            <p><strong>BIN:</strong> 4000 12xx xxxx xxxx</p>
+            <p><strong>Type:</strong> Visa Debit</p>
+            <p><strong>Country:</strong> United States</p>
+            <p><strong>Bank:</strong> Bank of America</p>
+            <p><strong>Status:</strong> ✅ Active</p>
+            <p><strong>Success Rate:</strong> 83%</p>
+            <p>Reliable BIN for Hulu streaming service subscriptions.</p>
+          </div>
+          <div class="bin-actions">
+            <button class="btn btn-primary" onclick="copyBIN('4000 12xx xxxx xxxx')">Copy BIN</button>
+            <button class="btn btn-success" onclick="showBINDetails('hulu')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    const binDetailsData = {
+      netflix: {
+        title: 'Netflix BIN Details',
+        steps: [
+          'Use this BIN for Netflix subscription testing.',
+          'Generate random numbers for remaining digits.',
+          'Use valid CVV and expiry date.',
+          'Success rate is approximately 85%.'
+        ]
+      },
+      amazon: {
+        title: 'Amazon Prime BIN Details',
+        steps: [
+          'Use this BIN for Amazon Prime testing.',
+          'Works for Amazon shopping as well.',
+          'Generate valid card details.',
+          'Success rate is approximately 78%.'
+        ]
+      },
+      google: {
+        title: 'Google Play BIN Details',
+        steps: [
+          'Use this BIN for Google Play Store testing.',
+          'Works for app purchases and subscriptions.',
+          'High success rate of 92%.',
+          'Generate valid card details.'
+        ]
+      },
+      spotify: {
+        title: 'Spotify BIN Details',
+        steps: [
+          'Use this BIN for Spotify music streaming subscriptions.',
+          'Generate valid card details.',
+          'High success rate of 88%.',
+          'Use responsibly for educational purposes.'
+        ]
+      },
+      paypal: {
+        title: 'PayPal BIN Details',
+        steps: [
+          'Use this BIN for PayPal transactions and online payments.',
+          'Generate valid card details.',
+          'Success rate is approximately 75%.',
+          'Use responsibly for educational purposes.'
+        ]
+      },
+      discord: {
+        title: 'Discord Nitro BIN Details',
+        steps: [
+          'Use this BIN for Discord Nitro and gaming subscriptions.',
+          'Generate valid card details.',
+          'Success rate is approximately 82%.',
+          'Use responsibly for educational purposes.'
+        ]
+      },
+      youtube: {
+        title: 'YouTube Premium BIN Details',
+        steps: [
+          'Use this BIN for YouTube Premium and YouTube Music subscriptions.',
+          'Generate valid card details.',
+          'Success rate is approximately 89%.',
+          'Use responsibly for educational purposes.'
+        ]
+      },
+      'apple-music': {
+        title: 'Apple Music BIN Details',
+        steps: [
+          'Use this BIN for Apple Music and Apple services subscriptions.',
+          'Generate valid card details.',
+          'Success rate is approximately 87%.',
+          'Use responsibly for educational purposes.'
+        ]
+      },
+      hulu: {
+        title: 'Hulu BIN Details',
+        steps: [
+          'Use this BIN for Hulu streaming service subscriptions.',
+          'Generate valid card details.',
+          'Success rate is approximately 83%.',
+          'Use responsibly for educational purposes.'
+        ]
+      }
+    };
+
+    function copyBIN(binNumber) {
+      navigator.clipboard.writeText(binNumber).then(() => {
+        showNotification('BIN copied to clipboard!', 'success');
+      }).catch(() => {
+        showNotification('Failed to copy BIN', 'error');
+      });
+    }
+
+    function showBINDetails(binType) {
+      const data = binDetailsData[binType];
+      if (!data) {
+        showNotification('BIN details not found', 'error');
+        return;
+      }
+
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      `;
+
+      const content = document.createElement('div');
+      content.style.cssText = `
+        background: #2a2a2a;
+        border-radius: 10px;
+        padding: 30px;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        color: #fff;
+      `;
+
+      let stepsHtml = '<ol style="padding-left: 20px;">';
+      data.steps.forEach(step => {
+        stepsHtml += `<li style="margin-bottom: 10px;">${step}</li>`;
+      });
+      stepsHtml += '</ol>';
+
+      content.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2>${data.title}</h2>
+          <button onclick="this.closest('.modal').remove()" style="background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;">&times;</button>
+        </div>
+        ${stepsHtml}
+      `;
+
+      modal.appendChild(content);
+      document.body.appendChild(modal);
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.remove();
+        }
+      });
+    }
+
+    function contactAdmin() {
+      window.open('https://t.me/MD_TECH_HACKER', '_blank');
+      showNotification('Redirecting to admin contact...', 'info');
+    }
+
+    function toggleFavorite(button, type, item) {
+      const icon = button.querySelector('i');
+      const isActive = button.classList.contains('active');
+
+      if (isActive) {
+        button.classList.remove('active');
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        showNotification('Removed from favorites', 'info');
+      } else {
+        button.classList.add('active');
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        if (window.MDTech && window.MDTech.addToFavorites) {
+          window.MDTech.addToFavorites(type, item);
+        } else {
+          showNotification('Added to favorites!', 'success');
+        }
+      }
+    }
+
+    // Load user favorites on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if (currentUser && currentUser.favorites) {
+        currentUser.favorites.forEach(fav => {
+          if (fav.type === 'bin') {
+            const cards = document.querySelectorAll('.bin-card');
+            cards.forEach(card => {
+              const title = card.querySelector('.bin-title').textContent.trim();
+              if (title.includes(fav.title)) {
+                const favBtn = card.querySelector('.favorite-btn');
+                favBtn.classList.add('active');
+                const icon = favBtn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+              }
+            });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
